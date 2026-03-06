@@ -10,8 +10,8 @@ export const SectionContainer = ({ section, scale, elapsedSinceStart }: { sectio
         position: 'fixed' as const,
         left: Math.floor(section.position.x * scale),
         top: Math.floor(section.position.y * scale),
-        width: Math.floor(section.position.width * scale),
-        height: Math.floor(section.position.height * scale),
+        width: '100%',
+        height: '100%',
         overflow: 'hidden' as const,
         zIndex: section.position.z_index,
     }), [section.position, scale])

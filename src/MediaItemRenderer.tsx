@@ -32,6 +32,7 @@ export const MediaItemRenderer = ({ item }: Props) => {
         height: '100%',
         objectFit: 'contain' as const,
         objectPosition: 'center',
+        backgroundColor: 'black',
         zIndex: item.hidden ? 0 : 1,
     }), [item.hidden])
 
