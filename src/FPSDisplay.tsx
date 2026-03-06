@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
+import { useConfigStore } from './stores/configStore'
 
 export const FPSDisplay = () => {
+    const showFps = useConfigStore(state => state.config.showFps)
     const [fps, setFps] = useState<number>(0)
     const frames = useRef<number>(0)
     const lastTime = useRef<number>(performance.now())
 
     useEffect(() => {
+        if (!showFps) return
+
         let animationFrameId: number
 
         const loop = (time: number) => {
@@ -23,7 +27,9 @@ export const FPSDisplay = () => {
         animationFrameId = requestAnimationFrame(loop)
 
         return () => cancelAnimationFrame(animationFrameId)
-    }, [])
+    }, [showFps])
+
+    if (!showFps) return null
 
     return (
         <div className="fixed top-2 left-2 bg-black text-green-400 text-sm font-mono px-2 py-1 rounded shadow-md z-50">

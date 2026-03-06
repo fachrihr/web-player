@@ -55,4 +55,8 @@ export class LocalStorageConfigAdapter implements ConfigStorageAdapter {
             throw error
         }
     }
+
+    async isConfigured(): Promise<boolean> {
+        return localStorage.getItem(CONFIG_STORAGE_KEY) !== null
+    }
 } 

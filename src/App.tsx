@@ -7,16 +7,20 @@ import { useConfigStore } from './stores/configStore'
 import { ConfigOverlay } from './components/ConfigOverlay'
 
 export const App = () => {
-    const { config, loadConfig } = useConfigStore()
+    const { config, loadConfig, configLoaded, isFirstRun } = useConfigStore()
     const adapterParam = config.cmsAdapter
     const adapterUrl = config.cmsAdapterUrl
     const timezone = config.timezone
+    const deviceName = config.deviceName
 
     useEffect(() => {
         loadConfig()
     }, [loadConfig])
 
-    const adapter = useMemo(() => getCMSAdapter(adapterParam, adapterUrl), [adapterParam, adapterUrl])
+    const adapter = useMemo(
+        () => getCMSAdapter(adapterParam, configLoaded && !isFirstRun ? adapterUrl : '', deviceName),
+        [adapterParam, adapterUrl, deviceName, configLoaded, isFirstRun]
+    )
     
     const data = useCMSAdapter({ adapter })
 
